@@ -13,7 +13,6 @@ class Controller_Welcome extends Controller {
 
 	public function action_index()
 	{
-		header("Content-type:text/html;charset=gb2312");
 		$hello = "hello,world";
 //		$this->response->body(View::factory('welcome/index')->set('hello',$hello));
 

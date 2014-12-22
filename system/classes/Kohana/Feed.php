@@ -25,7 +25,6 @@ class Kohana_Feed {
 
 		// Make limit an integer
 		$limit = (int) $limit;
-
 		// Disable error reporting while opening the feed
 		$error_level = error_reporting(0);
 
@@ -41,10 +40,9 @@ class Kohana_Feed {
 			// Get file contents
 			$feed = file_get_contents($feed);
 		}
-
+        
 		// Load the feed
 		$feed = simplexml_load_string($feed, 'SimpleXMLElement', LIBXML_NOCDATA);
-
 		// Restore error reporting
 		error_reporting($error_level);
 
@@ -58,6 +56,7 @@ class Kohana_Feed {
 		$feed = isset($feed->channel) ? $feed->xpath('//item') : $feed->entry;
 
 		$i = 0;
+		
 		$items = array();
 
 		foreach ($feed as $item)

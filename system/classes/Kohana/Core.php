@@ -507,6 +507,7 @@ class Kohana_Core {
 
 		if ($path = Kohana::find_file($directory, $file))
 		{
+//			echo $path;
 			// Load the class file
 			require $path;
 
@@ -666,7 +667,7 @@ class Kohana_Core {
 
 		// Create a partial path of the filename
 		$path = $dir.DIRECTORY_SEPARATOR.$file.$ext;
-
+		
 		if (Kohana::$caching === TRUE AND isset(Kohana::$_files[$path.($array ? '_array' : '_path')]))
 		{
 			// This path has been cached
@@ -728,7 +729,6 @@ class Kohana_Core {
 			// Stop the benchmark
 			Profiler::stop($benchmark);
 		}
-
 		return $found;
 	}
 

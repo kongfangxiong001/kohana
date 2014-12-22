@@ -132,6 +132,17 @@ Kohana::modules(array(
 	));
 
 /**
+ * session/cookie salt
+ */
+Kohana_Cookie::$salt='kohana_salt';
+Cookie::$salt = 'your secret is safe with me';
+Cookie::$path = '/public/';
+/**
+ * cache time
+ */
+Fragment::$lifetime = 10;
+
+/**
  * Set the routes. Each route must have a minimum of a name, a URI and a set of
  * defaults for the URI.
  */
