@@ -3,7 +3,6 @@ Class Controller_Hello extends Controller
 {
     public function action_index()
     {
-        
         echo 'hello,world!';
     }
 }
