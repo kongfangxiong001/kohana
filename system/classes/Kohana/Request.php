@@ -678,7 +678,7 @@ class Kohana_Request implements HTTP_Request {
 			// Remove trailing slashes from the URI
 			$this->_uri = trim($uri, '/');
 
-			// Apply the client
+			// Apply the client  _client为Request_Client_Internal的实例，后面直接ctrl+跟踪excute会跟踪到Client，在Client的excute中调用的execute_request 实际实现是在Request_Client_Internal中
 			$this->_client = new Request_Client_Internal($client_params);
 		}
 		else
@@ -924,7 +924,19 @@ class Kohana_Request implements HTTP_Request {
 	 * no headers are sent.
 	 *
 	 *     $request->execute();
-	 *
+	 *  
+	 * Request::process 负责提取参数
+	 * 
+	 * 将传递的参数分解，保存在下面的属性里。    
+	 * $this->_dircetory
+	 * $this->_controller
+	 * $this->_action
+	 * 
+	 * 将$params中的其他参数保存在
+	 * $this->_param里
+	 * 
+	 * 最后：$this->_client->execute($this)
+	 * 
 	 * @return  Response
 	 * @throws  Request_Exception
 	 * @throws  HTTP_Exception_404

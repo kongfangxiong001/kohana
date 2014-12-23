@@ -105,15 +105,15 @@ abstract class Kohana_Request_Client {
 						':depth' => $this->callback_depth() - 1,
 					));
 
-		// Execute the request and pass the currently used protocol
+		// Execute the request and pass the currently used protocol 创建$response
 		$orig_response = $response = Response::factory(array('_protocol' => $request->protocol()));
 
 		if (($cache = $this->cache()) instanceof HTTP_Cache)
 			return $cache->execute($this, $request, $response);
-
+        //创建$response
 		$response = $this->execute_request($request, $response);
 
-		// Execute response callbacks
+		// Execute response callbacks  处理headers
 		foreach ($this->header_callbacks() as $header => $callback)
 		{
 			if ($response->headers($header))
@@ -140,7 +140,7 @@ abstract class Kohana_Request_Client {
 					break;
 			}
 		}
-
+        //返回$response
 		return $response;
 	}
 

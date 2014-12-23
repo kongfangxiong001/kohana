@@ -98,7 +98,7 @@ if ( ! defined('KOHANA_START_MEMORY'))
 	define('KOHANA_START_MEMORY', memory_get_usage());
 }
 
-// Bootstrap the application
+// Bootstrap the application  设置一些参数，配置运行的环境
 require APPPATH.'bootstrap'.EXT;
 
 if (PHP_SAPI == 'cli') // Try and load minion
@@ -113,9 +113,10 @@ else
 	/**
 	 * Execute the main request. A source of the URI can be passed, eg: $_SERVER['PATH_INFO'].
 	 * If no source is specified, the URI will be automatically detected.
+	 * 这里才是真正执行请求
 	 */
 	echo Request::factory(TRUE, array(), FALSE)
-		->execute()
-		->send_headers(TRUE)
-		->body();
+		->execute() //执行
+		->send_headers(TRUE) //
+		->body();  //最终完成请求
 }

@@ -153,9 +153,29 @@ class Controller_Foobar extends Controller{
     
     public function Action_fo()
     {
-        $object = Validation::factory($array);
-//        $object->rule($field, $callback, array($parameter1, $parameter2));
-//        $object->rule($field, 'not_empty');
-          $object->rule('number', 'phone');
+        $errors = false;
+        $post = $this->request->post();
+        if($this->request->post()){
+            $object = Validation::factory($_POST);
+    //        $object->rule($field, $callback, array($parameter1, $parameter2));
+    //        $object->rule($field, 'not_empty');
+//            $object->rule('hello', 'not_empty');
+//            $object->rule('hello', 'Valid::phone');
+//            $object->rule('hello', 'Valid::regex',array(':value','/\d/'));
+            $object->label('confirm','重复密码');
+            $object->label('password','密码');
+//            $object->rule('hello','Controller_Foobar::Valid_func',array(':validation',':field','confirm','password'));
+            //matches可以用confirm和password取到对应的value,自定义函数不可以
+            $object->rule('confirm',  'matches', array(':validation', 'confirm', 'password'));
+//            $object->rule('hello', 'in_array', array(':value', array('red', 'green', 'blue')));
+            $object->check();
+            $errors = $object->errors('confirm');
+        }
+        $this->response->body(View::factory('foobar/form')->set('errors',$errors)->set('post',$post));
     }
+    static function Valid_func($validation,$field,$value,$t){
+         if($value!=$t){
+             $validation->error($field, 'valid_func',array($value,$t));  
+         }
+    }    
 }

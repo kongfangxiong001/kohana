@@ -93,9 +93,9 @@ class Kohana_Request_Client_Internal extends Request_Client {
 			// Create a new instance of the controller
 			$controller = $class->newInstance($request, $response);
 
-			// Run the controller's execute() method
+			// Run the controller's execute() method  真正执行controller action,返回给$response
 			$response = $class->getMethod('execute')->invoke($controller);
-
+			
 			if ( ! $response instanceof Response)
 			{
 				// Controller failed to return a Response.
