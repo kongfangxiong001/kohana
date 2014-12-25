@@ -78,6 +78,7 @@ class Kohana_Route {
 	 * Stores a named route and returns it. The "action" will always be set to
 	 * "index" if it is not defined.
 	 *
+	 *     设置路由：
 	 *     Route::set('default', '(<controller>(/<action>(/<id>)))')
 	 *         ->defaults(array(
 	 *             'controller' => 'welcome',
@@ -400,6 +401,8 @@ class Kohana_Route {
 	 * Tests if the route matches a given Request. A successful match will return
 	 * all of the routed parameters as an array. A failed match will return
 	 * boolean FALSE.
+	 * 
+	 * 成功匹配则返回路由参数的数组，否则返回false
 	 *
 	 *     // Params: controller = users, action = edit, id = 10
 	 *     $params = $route->matches(Request::factory('users/edit/10'));
@@ -447,13 +450,13 @@ class Kohana_Route {
 
 		if ( ! empty($params['controller']))
 		{
-			// PSR-0: Replace underscores with spaces, run ucwords, then replace underscore
+			// PSR-0: Replace underscores with spaces, run ucwords, then replace underscore   aaa_bbb_ccc => Aaa Bbb Ccc => Aaa_Bbb_Ccc 
 			$params['controller'] = str_replace(' ', '_', ucwords(str_replace('_', ' ', $params['controller'])));
 		}
 
 		if ( ! empty($params['directory']))
 		{
-			// PSR-0: Replace underscores with spaces, run ucwords, then replace underscore
+			// PSR-0: Replace underscores with spaces, run ucwords, then replace underscore   aaa_bbb_ccc => Aaa Bbb Ccc => Aaa_Bbb_Ccc 
 			$params['directory'] = str_replace(' ', '_', ucwords(str_replace('_', ' ', $params['directory'])));
 		}
 

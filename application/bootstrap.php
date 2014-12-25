@@ -103,6 +103,7 @@ if (isset($_SERVER['KOHANA_ENV']))
  */
 Kohana::init(array(
 	'base_url'   => '/',
+    'index_file' => FALSE,
 ));
 
 /**
@@ -133,7 +134,7 @@ Kohana::modules(array(
 /**
  * session/cookie salt
  */
-Kohana_Cookie::$salt='kohana_salt';
+//Kohana_Cookie::$salt='kohana_salt';
 Cookie::$salt = 'your secret is safe with me';
 Cookie::$path = '/public/';
 /**

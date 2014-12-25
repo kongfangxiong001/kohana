@@ -459,7 +459,7 @@ class Kohana_Request implements HTTP_Request {
 		// Load routes
 		$routes = (empty($routes)) ? Route::all() : $routes;
 		$params = NULL;
-
+        //循环匹配路由，直到匹配成功为止，如果最后没有匹配成功返回null
 		foreach ($routes as $name => $route)
 		{
 			// We found something suitable
@@ -670,9 +670,9 @@ class Kohana_Request implements HTTP_Request {
 			}
 		}
 
-		// Detect protocol (if present)
-		// $allow_external = FALSE prevents the default index.php from
-		// being able to proxy external pages.
+		// Detect protocol (if present)  判断是否指定了协议
+		// $allow_external = FALSE prevents the default index.php from  是否允许外部请求
+		// being able to proxy external pages.  处理内部请求  
 		if ( ! $allow_external OR strpos($uri, '://') === FALSE)
 		{
 			// Remove trailing slashes from the URI
@@ -698,7 +698,7 @@ class Kohana_Request implements HTTP_Request {
 			// Set external state
 			$this->_external = TRUE;
 
-			// Setup the client
+			// Setup the client  外部请求
 			$this->_client = Request_Client_External::factory($client_params);
 		}
 	}
@@ -947,6 +947,7 @@ class Kohana_Request implements HTTP_Request {
 	{
 		if ( ! $this->_external)
 		{
+		    //提取参数
 			$processed = Request::process($this, $this->_routes);
 
 			if ($processed)
