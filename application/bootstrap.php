@@ -32,6 +32,7 @@ date_default_timezone_set('Asia/Shanghai');
 setlocale(LC_ALL, 'en_US.utf-8');
 
 /**
+ * spl_autoload_register(class,method);
  * Enable the Kohana auto-loader.
  *
  * @link http://kohanaframework.org/guide/using.autoloading
@@ -103,7 +104,7 @@ if (isset($_SERVER['KOHANA_ENV']))
  */
 Kohana::init(array(
 	'base_url'   => '/',
-    'index_file' => FALSE,
+    'index_file' => true,
 ));
 
 /**
@@ -151,3 +152,6 @@ Route::set('default', '(<controller>(/<action>(/<user_id>.<format>)))')
 		'controller' => 'welcome',
 		'action'     => 'index',
 	));
+/**
+* 	加载的文件有classes/Kohana/Core,classes/Kohana。还有modules下的init文件
+*/

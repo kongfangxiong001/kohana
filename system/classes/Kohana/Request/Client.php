@@ -96,7 +96,7 @@ abstract class Kohana_Request_Client {
 	 */
 	public function execute(Request $request)
 	{
-		// Prevent too much recursion of header callback requests
+		// Prevent too much recursion of header callback requests  防止递归循环
 		if ($this->callback_depth() > $this->max_callback_depth())
 			throw new Request_Client_Recursion_Exception(
 					"Could not execute request to :uri - too many recursions after :depth requests",
@@ -107,10 +107,11 @@ abstract class Kohana_Request_Client {
 
 		// Execute the request and pass the currently used protocol 创建$response
 		$orig_response = $response = Response::factory(array('_protocol' => $request->protocol()));
-
+		
+		//有http_cache
 		if (($cache = $this->cache()) instanceof HTTP_Cache)
 			return $cache->execute($this, $request, $response);
-        //创建$response
+        //创建$response   $this 为这个Kohana_Request_Client_Internal的实例  或者为external实例
 		$response = $this->execute_request($request, $response);
 
 		// Execute response callbacks  处理headers

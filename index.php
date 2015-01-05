@@ -115,8 +115,11 @@ else
 	 * If no source is specified, the URI will be automatically detected.
 	 * 这里才是真正执行请求
 	 */
+	/**
+	 * Request 类并未加载 spl_autoload_register()注册的auto_loader会自动加载request类
+	 */
 	echo Request::factory(TRUE, array(), FALSE)
-		->execute() //执行
+		->execute() //执行,返回response对象
 		->send_headers(TRUE) //
 		->body();  //最终完成请求
 }

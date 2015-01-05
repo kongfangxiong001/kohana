@@ -41,10 +41,10 @@ class Kohana_Request_Client_Internal extends Request_Client {
 
 		if ($directory)
 		{
-			// Add the directory name to the class prefix
+			// Add the directory name to the class prefix ||| controller前缀需要添加directory psr-0
 			$prefix .= str_replace(array('\\', '/'), '_', trim($directory, '/')).'_';
 		}
-
+		
 		if (Kohana::$profiling)
 		{
 			// Set the benchmark name
@@ -79,7 +79,7 @@ class Kohana_Request_Client_Internal extends Request_Client {
 				)->request($request);
 			}
 
-			// Load the controller using reflection
+			// Load the controller using reflection 反射
 			$class = new ReflectionClass($prefix.$controller);
 
 			if ($class->isAbstract())
@@ -90,10 +90,10 @@ class Kohana_Request_Client_Internal extends Request_Client {
 				);
 			}
 
-			// Create a new instance of the controller
+			// Create a new instance of the controller  每个controller都接收$request,$response
 			$controller = $class->newInstance($request, $response);
 
-			// Run the controller's execute() method  真正执行controller action,返回给$response
+			// Run the controller's execute() method  真正执行controller action,返回给$response    执行controller的Kohana_Controller的excute()
 			$response = $class->getMethod('execute')->invoke($controller);
 			if ( ! $response instanceof Response)
 			{
@@ -118,7 +118,7 @@ class Kohana_Request_Client_Internal extends Request_Client {
 			$response = Kohana_Exception::_handler($e);
 		}
 
-		// Restore the previous request
+		// Restore the previous request 交还给current
 		Request::$current = $previous;
 
 		if (isset($benchmark))

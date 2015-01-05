@@ -68,7 +68,7 @@ abstract class Kohana_Controller {
 		// Execute the "before action" method
 		$this->before();
 
-		// Determine the action to use
+		// Determine the action to use //获取$this->request的action
 		$action = 'action_'.$this->request->action();
 
 		// If the action doesn't exist, it's a 404
@@ -80,13 +80,13 @@ abstract class Kohana_Controller {
 			)->request($this->request);
 		}
 
-		// Execute the action itself
+		// Execute the action itself //controller为请求的controller，执行action
 		$this->{$action}();
 
 		// Execute the "after action" method
 		$this->after();
 
-		// Return the response
+		// Return the response  //返回response
 		return $this->response;
 	}
 

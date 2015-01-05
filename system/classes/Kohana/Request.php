@@ -54,6 +54,9 @@ class Kohana_Request implements HTTP_Request {
 	 * @uses    Route::all
 	 * @uses    Route::matches
 	 */
+	/**
+	* 建立request对象，设置cookie，body，method，http_referer等。
+	*/
 	public static function factory($uri = TRUE, $client_params = array(), $allow_external = TRUE, $injected_routes = array())
 	{
 		// If this is the initial request
@@ -672,7 +675,7 @@ class Kohana_Request implements HTTP_Request {
 
 		// Detect protocol (if present)  判断是否指定了协议
 		// $allow_external = FALSE prevents the default index.php from  是否允许外部请求
-		// being able to proxy external pages.  处理内部请求  
+		// being able to proxy external pages.  处理内部请求   不允许或者$uri===false
 		if ( ! $allow_external OR strpos($uri, '://') === FALSE)
 		{
 			// Remove trailing slashes from the URI
@@ -925,6 +928,10 @@ class Kohana_Request implements HTTP_Request {
 	 *
 	 *     $request->execute();
 	 *  
+	 *  before();
+	 *  controller/action();
+	 *  after();
+	 *  
 	 * Request::process 负责提取参数
 	 * 
 	 * 将传递的参数分解，保存在下面的属性里。    
@@ -953,6 +960,7 @@ class Kohana_Request implements HTTP_Request {
 			if ($processed)
 			{
 				// Store the matching route
+				//$processed = array('route'="",'params'=>"")
 				$this->_route = $processed['route'];
 				$params = $processed['params'];
 
@@ -1280,7 +1288,7 @@ class Kohana_Request implements HTTP_Request {
 	{
 		if (is_array($key))
 		{
-			// Act as a setter, replace all query strings
+			// Act as a setter, replace all query strings setArray
 			$this->_get = $key;
 
 			return $this;
@@ -1288,16 +1296,16 @@ class Kohana_Request implements HTTP_Request {
 
 		if ($key === NULL)
 		{
-			// Act as a getter, all query strings
+			// Act as a getter, all query strings getALl
 			return $this->_get;
 		}
 		elseif ($value === NULL)
 		{
-			// Act as a getter, single query string
+			// Act as a getter, single query string getOne
 			return Arr::path($this->_get, $key);
 		}
 
-		// Act as a setter, single query string
+		// Act as a setter, single query string setOne
 		$this->_get[$key] = $value;
 
 		return $this;
@@ -1315,7 +1323,7 @@ class Kohana_Request implements HTTP_Request {
 	{
 		if (is_array($key))
 		{
-			// Act as a setter, replace all fields
+			// Act as a setter, replace all fields setArray
 			$this->_post = $key;
 
 			return $this;
@@ -1323,16 +1331,16 @@ class Kohana_Request implements HTTP_Request {
 
 		if ($key === NULL)
 		{
-			// Act as a getter, all fields
+			// Act as a getter, all fields getArray
 			return $this->_post;
 		}
 		elseif ($value === NULL)
 		{
-			// Act as a getter, single field
+			// Act as a getter, single field   getOne
 			return Arr::path($this->_post, $key);
 		}
 
-		// Act as a setter, single field
+		// Act as a setter, single field setOne
 		$this->_post[$key] = $value;
 
 		return $this;

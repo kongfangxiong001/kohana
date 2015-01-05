@@ -565,6 +565,7 @@ class Kohana_Core {
 		}
 
 		// Start a new list of include paths, APPPATH first
+		// 更改$paths
 		$paths = array(APPPATH);
 
 		foreach ($modules as $name => $path)
@@ -587,7 +588,7 @@ class Kohana_Core {
 		// Finish the include paths by adding SYSPATH
 		$paths[] = SYSPATH;
 
-		// Set the new include paths
+		// Set the new include paths paths  =  |SYSPATH|APPPATH|自动加载的modules
 		Kohana::$_paths = $paths;
 
 		// Set the current module list
@@ -595,6 +596,7 @@ class Kohana_Core {
 
 		foreach (Kohana::$_modules as $path)
 		{
+			//加载自动加载module的init文件
 			$init = $path.'init'.EXT;
 
 			if (is_file($init))

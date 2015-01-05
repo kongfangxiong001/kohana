@@ -6,6 +6,8 @@ Class Controller_Hello extends Controller_Template
     {
         $this->template->message = 'hello,world!';
         Request::factory();
+        $test = "";
+        echo $test;
     }
     public function action_doo()
     {
