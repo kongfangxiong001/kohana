@@ -68,7 +68,6 @@ class Kohana_Request_Client_Internal extends Request_Client {
 
 		// Is this the initial request
 		$initial_request = ($request === Request::$initial);
-
 		try
 		{
 			if ( ! class_exists($prefix.$controller))
@@ -78,10 +77,9 @@ class Kohana_Request_Client_Internal extends Request_Client {
 					array(':uri' => $request->uri())
 				)->request($request);
 			}
-
 			// Load the controller using reflection 反射
 			$class = new ReflectionClass($prefix.$controller);
-
+	
 			if ($class->isAbstract())
 			{
 				throw new Kohana_Exception(

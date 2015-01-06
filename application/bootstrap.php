@@ -121,11 +121,11 @@ Kohana::$config->attach(new Config_File);
  * Enable modules. Modules are referenced by a relative or absolute path.
  */
 Kohana::modules(array(
-	// 'auth'       => MODPATH.'auth',       // Basic authentication
+// 	'auth'       => MODPATH.'auth',       // Basic authentication
 	// 'cache'      => MODPATH.'cache',      // Caching with multiple backends
 	// 'codebench'  => MODPATH.'codebench',  // Benchmarking tool
         'database'   => MODPATH.'database',   // Database access
-	// 'image'      => MODPATH.'image',      // Image manipulation
+// 	'image'      => MODPATH.'image',      // Image manipulation
 	// 'minion'     => MODPATH.'minion',     // CLI Tasks
 	// 'orm'        => MODPATH.'orm',        // Object Relationship Mapping
 	// 'unittest'   => MODPATH.'unittest',   // Unit testing
@@ -147,6 +147,15 @@ Fragment::$lifetime = 10;
  * Set the routes. Each route must have a minimum of a name, a URI and a set of
  * defaults for the URI.
  */
+Route::set('sections', '<directory>(/<controller>(/<action>(/<id>)))',
+    array(
+        'directory' => '(sub|affiliate)'
+    ))
+    ->defaults(array(
+        'controller' => 'Home',
+        'action'     => 'index',
+    ));
+
 Route::set('default', '(<controller>(/<action>(/<user_id>.<format>)))')
 	->defaults(array(
 		'controller' => 'welcome',

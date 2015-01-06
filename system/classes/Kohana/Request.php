@@ -956,7 +956,7 @@ class Kohana_Request implements HTTP_Request {
 		{
 		    //提取参数
 			$processed = Request::process($this, $this->_routes);
-
+			
 			if ($processed)
 			{
 				// Store the matching route
@@ -988,7 +988,6 @@ class Kohana_Request implements HTTP_Request {
 				$this->_params = $params;
 			}
 		}
-
 		if ( ! $this->_route instanceof Route)
 		{
 			return HTTP_Exception::factory(404, 'Unable to find a route to match the URI: :uri', array(

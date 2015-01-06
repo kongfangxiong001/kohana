@@ -56,7 +56,7 @@ abstract class Kohana_Database {
 			// Use the default instance name
 			$name = Database::$default;
 		}
-
+		//单例  实例化后会存储在Database::$instances[$name]
 		if ( ! isset(Database::$instances[$name]))
 		{
 			if ($config === NULL)
@@ -74,10 +74,10 @@ abstract class Kohana_Database {
 			// Set the driver class name
 			$driver = 'Database_'.ucfirst($config['type']);
 
-			// Create the database connection instance
+			// Create the database connection instance 根据配置中的$name,$config实例化
 			$driver = new $driver($name, $config);
 
-			// Store the database instance
+			// Store the database instance  存储
 			Database::$instances[$name] = $driver;
 		}
 

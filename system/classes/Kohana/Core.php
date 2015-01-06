@@ -488,6 +488,7 @@ class Kohana_Core {
 	 * @param   string  $class      Class name
 	 * @param   string  $directory  Directory to load from
 	 * @return  boolean
+	 * 也可以用 namespace\\$class 调用？？？
 	 */
 	public static function auto_load($class, $directory = 'classes')
 	{
@@ -495,16 +496,13 @@ class Kohana_Core {
 		$class     = ltrim($class, '\\');
 		$file      = '';
 		$namespace = '';
-
 		if ($last_namespace_position = strripos($class, '\\'))
 		{
 			$namespace = substr($class, 0, $last_namespace_position);
 			$class     = substr($class, $last_namespace_position + 1);
 			$file      = str_replace('\\', DIRECTORY_SEPARATOR, $namespace).DIRECTORY_SEPARATOR;
 		}
-
 		$file .= str_replace('_', DIRECTORY_SEPARATOR, $class);
-
 		if ($path = Kohana::find_file($directory, $file))
 		{
 //			echo $path;
